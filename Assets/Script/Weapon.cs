@@ -6,64 +6,37 @@ using UnityEngine.Animations.Rigging;
 public class Weapon : MonoBehaviour
 {
 
-    public GameObject[] _Weapons;
     public GameObject _bullet;
-    public GameObject[] _fire_point;
-    [SerializeField] int[] _Maximum_ammo;
-    [SerializeField] int[] _Mag;
-    [SerializeField] int[] _Amintion;
-    [SerializeField] float[] firerate;
-    [SerializeField] TextMeshProUGUI text;
-    public float[] time_to_reload;
-    public int[] damge;
-    public int[] range;
+    public GameObject _fire_point;
+    public int _Maximum_ammo;
+    public int _Mag;
+    public int _Amintion;
+    public float firerate;
+    public TextMeshProUGUI text;
+    public AudioClip reloading_gun;
+    public float time_to_reload;
+    public int damge;
+    public int range;
     private int _Current_bullet;
-    public GameObject _Bullet;
     public AudioClip[] audioClips;
-    public ParticleSystem[] ammo_seaprt;
-    private bool[] isreloading;
-    bool[] is_gun_upgrade;
+    public ParticleSystem ammo_seaprt;
+    public bool isreloading;
+    private bool is_gun_upgrade;
     AudioSource audioSource;
     private float nexttimefire;
-    [SerializeField] Camera _camera;
-    [SerializeField] Rig rig;
-    [SerializeField] TwoBoneIKConstraint[] iKConstraint;
+    public Camera _camera;
+    public Rig rig;
+    public Transform[] point_weapons;
+    public TwoBoneIKConstraint[] iKConstraint;
     public RaycastHit raycastHit;
-    public int gun_index = 0;
     void Start()
     {
-        isreloading = new bool[_Weapons.Length];
-        is_gun_upgrade = new bool[_Weapons.Length];
         audioSource = GetComponent<AudioSource>();
-        _Weapon_Switch(0);
-        text.text = $"{_Amintion[gun_index] } / {_Mag[gun_index]}";
+        text.text = $"{_Amintion } / {_Mag}";
     }
-    void _Weapon_Switch(int num)
+    public void update_ammo_stats()
     {
-        num = num > 0 && num < _Weapons.Length ? num : 0;
-        gun_index = num;
-        for(int i =0; i < _Weapons.Length;i++)
-        {
-            _Weapons[i].SetActive(false);
-            if (i == num)
-            {
-                _Weapons[i].SetActive(true);
-            }
-        }
-        for (int x = 0; x < _Weapons[num].transform.childCount; x++)
-        {
-            if (_Weapons[num].transform.GetChild(x).name.Contains("right"))
-            {
-                iKConstraint[0].data.target = _Weapons[num].transform.GetChild(x);
-            }
-            if (_Weapons[num].transform.GetChild(x).name.Contains("left"))
-            {
-                iKConstraint[1].data.target = _Weapons[num].transform.GetChild(x);
-            }
-        }
-        rig.weight = 0;
-        rig.weight = 1;
-        text.text = $"{_Amintion[num] } / {_Mag[num]}";
+        text.text = $"{_Amintion } / {_Mag}";
     }
     void Upgrade_gun()
     {
@@ -71,48 +44,49 @@ public class Weapon : MonoBehaviour
     }
     IEnumerator reloading()
     {
-            isreloading[gun_index] = true;
-            ammo_seaprt[gun_index].Stop();
-            if (_Amintion[gun_index] == 0 && _Mag[gun_index] > 0 || _Amintion[gun_index] < _Maximum_ammo[gun_index] && _Mag[gun_index] > 0)
+            isreloading = true;
+        audioSource.PlayOneShot(reloading_gun, 0.7f);
+            ammo_seaprt.Stop();
+            if (_Amintion == 0 && _Mag > 0 || _Amintion < _Maximum_ammo && _Mag > 0)
             {
                 rig.weight = 0;
-                _Current_bullet = _Maximum_ammo[gun_index] - _Amintion[gun_index];
-                _Mag[gun_index] -= _Current_bullet;
-                _Amintion[gun_index] += _Current_bullet;
+                _Current_bullet = _Maximum_ammo - _Amintion;
+                _Mag -= _Current_bullet;
+                _Amintion += _Current_bullet;
             }
-            yield return new WaitForSeconds(time_to_reload[gun_index]);
-            isreloading[gun_index] = false;
+            yield return new WaitForSeconds(time_to_reload);
+            isreloading = false;
             rig.weight = 1;
-            text.text = $"{_Amintion[gun_index] } / {_Mag[gun_index]}";
+            text.text = $"{_Amintion } / {_Mag}";
     }
     void _fire()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && nexttimefire > firerate[gun_index])
+        if (Input.GetKey(KeyCode.Mouse0) && nexttimefire > firerate && _Amintion > 0)
         {
-            if (!ammo_seaprt[gun_index].isPlaying)
-            ammo_seaprt[gun_index].Play();
-            if (_Amintion[gun_index] > 0)
+            if (!ammo_seaprt.isPlaying)
+            ammo_seaprt.Play();
+            if (_Amintion > 0)
             {
-                _Amintion[gun_index]--;
-                text.text = $"{_Amintion[gun_index] } / {_Mag[gun_index]}";
+                _Amintion--;
+                text.text = $"{_Amintion } / {_Mag}";
             }
-            if(Physics.Raycast(_camera.transform.position, _camera.transform.forward,out raycastHit, range[gun_index]))
+            if(Physics.Raycast(_camera.transform.position, _camera.transform.forward,out raycastHit, range))
             {
-                GameObject bullet = Instantiate(_bullet, _fire_point[gun_index].transform.position, Quaternion.Euler(0, 45, 0));
+                GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, _camera.transform.rotation);
                 bullet.AddComponent<bullet_forword>()._weapon = this;
                 bullte_forword(bullet, raycastHit.point);
                 Destroy(bullet, 2f);
                 if(raycastHit.transform.gameObject.tag == "zm" && raycastHit.transform.gameObject.GetComponent<Zombie_health>() != null)
                 {
-                    raycastHit.transform.gameObject.GetComponent<Zombie_health>().Helath -= damge[gun_index];
+                    raycastHit.transform.gameObject.GetComponent<Zombie_health>().Helath -= damge;
                 }
             }
             nexttimefire = 0;
-            audioSource.PlayOneShot(is_gun_upgrade[gun_index] ? audioClips[1] : audioClips[0] , 0.7f);
+            audioSource.PlayOneShot(is_gun_upgrade ? audioClips[1] : audioClips[0] , 0.7f);
         }
-        if(!Input.GetKey(KeyCode.Mouse0) && nexttimefire > firerate[gun_index])
+        if(!Input.GetKey(KeyCode.Mouse0) || _Amintion <= 0)
         {
-            ammo_seaprt[gun_index].Stop();
+            ammo_seaprt.Stop();
         }
     }
     void bullte_forword(GameObject gameObject,Vector3 endlocation)
@@ -122,15 +96,15 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         nexttimefire += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { _Weapon_Switch(0); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { _Weapon_Switch(1); }
-        if (_Mag[gun_index] == 0 && _Amintion[gun_index] == 0 && Input.GetKey(KeyCode.Mouse0))
-        {
-            _Weapon_Switch(Random.Range(0, _Weapons.Length));
-        }
-        if (isreloading[gun_index])
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) { _Weapon_Switch(0); }
+        //if (Input.GetKeyDown(KeyCode.Alpha2)) { _Weapon_Switch(1); }
+        //if (_Mag == 0 && _Amintion == 0 && Input.GetKey(KeyCode.Mouse0))
+        //{
+        //    _Weapon_Switch(Random.Range(0, _Weapons.Length));
+        //}
+        if (isreloading)
             return;
-        if (Input.GetKeyDown(KeyCode.R) || _Amintion[gun_index] <= 0)
+        if (Input.GetKeyDown(KeyCode.R) && _Mag > 0 && _Amintion != _Maximum_ammo || _Amintion <= 0 && _Mag > 0)
         {
             StartCoroutine(reloading());
             return;

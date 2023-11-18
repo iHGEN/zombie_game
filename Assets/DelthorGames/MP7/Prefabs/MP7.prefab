@@ -3246,6 +3246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6274230487553460192}
+  - component: {fileID: 3170628415190849638}
   m_Layer: 0
   m_Name: MP7
   m_TagString: Untagged
@@ -3317,6 +3318,40 @@ Transform:
   - {fileID: 8005565477300452071}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3170628415190849638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631735406038782992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859175c6766fc444483e91e0588d4779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 100000, guid: 16778e0846ccc934ea5d52b701c0858c, type: 3}
+  _fire_point: {fileID: 0}
+  _Maximum_ammo: 30
+  _Mag: 120
+  _Amintion: 30
+  firerate: 0.1
+  text: {fileID: 0}
+  time_to_reload: 1.5
+  damge: 15
+  range: 20
+  audioClips:
+  - {fileID: 8300000, guid: eae539703e633e64fb60634de98020d4, type: 3}
+  - {fileID: 8300000, guid: 194f0757e24473b4aa2d8521312bd5b3, type: 3}
+  ammo_seaprt: {fileID: 0}
+  _camera: {fileID: 0}
+  rig: {fileID: 0}
+  point_weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  iKConstraint:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7657005497000801438
 GameObject:
   m_ObjectHideFlags: 0

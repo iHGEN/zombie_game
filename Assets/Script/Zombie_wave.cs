@@ -86,20 +86,14 @@ public class Zombie_wave : MonoBehaviour
         {
             distance_from_point_spawon[i] = Vector3.Distance(this.transform.position, _area_point[i].transform.position);
         }
-    q:
         small = distance_from_point_spawon[0];
         for (int x = 0; x < distance_from_point_spawon.Length; x++)
         {
-            if (distance_from_point_spawon[x] < small)
+            if (distance_from_point_spawon[x] < small && _area_point[index])
             {
                 small = distance_from_point_spawon[x];
                 index = x;
             }
-        }
-        if (!_area_point[index])
-        {
-            distance_from_point_spawon[index] = 1000;
-            goto q;
         }
         switch (index)
         {
