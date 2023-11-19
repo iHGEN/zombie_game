@@ -20,7 +20,9 @@ public class Zombie_wave : MonoBehaviour
     [SerializeField] float Zombie_hight;
     [SerializeField] float Zombie_radius;
     [SerializeField] RuntimeAnimatorController animatorController;
+    [SerializeField] float stoppingDistance;
     [SerializeField] bool[] _is_area_enable;
+    Zombie_health[] zombie_Healths;
     AudioSource audioSource;
     Animator[] zombei_animator;
     GameObject[] _Zombie_charcter;
@@ -32,10 +34,12 @@ public class Zombie_wave : MonoBehaviour
     float[] distance_from_point_spawon;
     int _start_point;
     int _end_point;
+    readonly int attack = Animator.StringToHash("attack");
     private void Awake()
     {
         _is_area_enable = new bool[_area_point.Length];
         _is_area_enable[0] = true;
+        zombie_Healths = new Zombie_health[max_zombie_count];
         distance_from_point_spawon = new float[_area_point.Length];
         gameObject.AddComponent<AudioSource>();
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -67,14 +71,17 @@ public class Zombie_wave : MonoBehaviour
                 random_zombie_charcter = Random.Range(0, zombie.Length);
                 _Zombie_charcter[i] = Instantiate(zombie[random_zombie_charcter],_Spawon_point[random_zombie_spawon].transform.position, Quaternion.identity);
                 _Zombie_charcter[i].AddComponent<Zombie_health>().Helath = zombie_Health.Helath;
+                zombie_Healths[i] = _Zombie_charcter[i].GetComponent<Zombie_health>();
                 zombei_animator[i] = _Zombie_charcter[i].GetComponent<Animator>();
                 zombei_animator[i].runtimeAnimatorController = animatorController;
                 _Zombie_charcter[i].GetComponent<CapsuleCollider>().isTrigger = true;
                 _Zombie_charcter[i].AddComponent<NavMeshAgent>();
                 Zombie_Agents[i] = _Zombie_charcter[i].GetComponent<NavMeshAgent>();
                 Zombie_Agents[i].radius = Zombie_radius;
-                Zombie_Agents[i].speed = Random.Range(1f, 2f);
+                Zombie_Agents[i].speed = Random.Range(0.5f, 2f);
                 Zombie_Agents[i].height = Zombie_hight;
+                Zombie_Agents[i].stoppingDistance = stoppingDistance;
+                Zombie_Agents[i].obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
             }
         }
     }
@@ -139,17 +146,17 @@ public class Zombie_wave : MonoBehaviour
             if (_Zombie_charcter[i] != null)
             {
                 var distance = Vector3.Distance(_Zombie_charcter[i].transform.position, target.transform.position);
-                zombei_animator[i].SetBool("attack", (distance < 0.5f) && _Zombie_charcter[i].GetComponent<Zombie_health>()._is_die != true);
-                if(_Zombie_charcter[i].GetComponent<Zombie_health>()._is_die  == true)
+                zombei_animator[i].SetBool(attack, distance <= Zombie_Agents[i].stoppingDistance && !zombie_Healths[i]._is_die);
+                if(zombie_Healths[i]._is_die)
                 {
-                    Zombie_Agents[i].stoppingDistance = 100f;
+                    Zombie_Agents[i].isStopped = true;
                 }
                 var lockd = Quaternion.LookRotation(new Vector3(Zombie_Agents[i].destination.x, 0, Zombie_Agents[i].destination.z));
                 if (lockd.eulerAngles.x != 0 || lockd.eulerAngles.z != 0)
                 {
                     Zombie_Agents[i].transform.Rotate(0, lockd.eulerAngles.normalized.magnitude, 0);
                 }
-                if (distance > 0.3f && _Zombie_charcter[i].GetComponent<Zombie_health>()._is_die != true)
+                if (distance > Zombie_Agents[i].stoppingDistance && !zombie_Healths[i]._is_die)
                 {
                     Zombie_Agents[i].destination = target.transform.position;
                 }

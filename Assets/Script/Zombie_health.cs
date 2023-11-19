@@ -5,7 +5,8 @@ using UnityEngine;
 public class Zombie_health : MonoBehaviour
 {
     public float Helath;
-   public bool _is_die;
+    public bool _is_die;
+    readonly int die = Animator.StringToHash("die");
     // Update is called once per frame
     void Update()
     {
@@ -14,7 +15,7 @@ public class Zombie_health : MonoBehaviour
             if(!_is_die)
             {
                 _is_die = true;
-                gameObject.GetComponent<Animator>().SetTrigger("die");
+                gameObject.GetComponent<Animator>().SetTrigger(die);
                 Destroy(gameObject, 2f);
             }
         }

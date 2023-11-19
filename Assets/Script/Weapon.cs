@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.Animations.Rigging;
 public class Weapon : MonoBehaviour
 {
-
+    public Money _money;
     public GameObject _bullet;
     public GameObject _fire_point;
     public int _Maximum_ammo;
@@ -47,13 +47,21 @@ public class Weapon : MonoBehaviour
             isreloading = true;
         audioSource.PlayOneShot(reloading_gun, 0.7f);
             ammo_seaprt.Stop();
-            if (_Amintion == 0 && _Mag > 0 || _Amintion < _Maximum_ammo && _Mag > 0)
+        if (_Amintion == 0 && _Mag > 0 || _Amintion < _Maximum_ammo && _Mag > 0)
+        {
+            rig.weight = 0;
+            _Current_bullet = _Maximum_ammo - _Amintion;
+            if (_Mag < _Maximum_ammo)
             {
-                rig.weight = 0;
-                _Current_bullet = _Maximum_ammo - _Amintion;
+                _Current_bullet += _Mag;
+                _Mag = 0;
+            }
+            else
+            {
                 _Mag -= _Current_bullet;
                 _Amintion += _Current_bullet;
             }
+        }
             yield return new WaitForSeconds(time_to_reload);
             isreloading = false;
             rig.weight = 1;
@@ -78,6 +86,7 @@ public class Weapon : MonoBehaviour
                 Destroy(bullet, 2f);
                 if(raycastHit.transform.gameObject.tag == "zm" && raycastHit.transform.gameObject.GetComponent<Zombie_health>() != null)
                 {
+                    _money.add_money(_money.zombie_hit_money);
                     raycastHit.transform.gameObject.GetComponent<Zombie_health>().Helath -= damge;
                 }
             }
@@ -96,12 +105,6 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         nexttimefire += Time.deltaTime;
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) { _Weapon_Switch(0); }
-        //if (Input.GetKeyDown(KeyCode.Alpha2)) { _Weapon_Switch(1); }
-        //if (_Mag == 0 && _Amintion == 0 && Input.GetKey(KeyCode.Mouse0))
-        //{
-        //    _Weapon_Switch(Random.Range(0, _Weapons.Length));
-        //}
         if (isreloading)
             return;
         if (Input.GetKeyDown(KeyCode.R) && _Mag > 0 && _Amintion != _Maximum_ammo || _Amintion <= 0 && _Mag > 0)

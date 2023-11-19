@@ -23,7 +23,7 @@ public class _weapon_switch : MonoBehaviour
     }
     void _Weapon_Switch(int num)
     {
-        if (_Weapons[gun_index] != null)
+        if (_Weapons[num] != null)
         {
             num = num > 0 && num < _Weapons.Length ? num : 0;
             gun_index = num;
@@ -35,6 +35,7 @@ public class _weapon_switch : MonoBehaviour
                     _Weapons_class[i].isreloading = false;
                     _Weapons_class[i].update_ammo_stats();
                     _Weapons[i].SetActive(true);
+                    gun_index = num;
                 }
             }
         }
@@ -43,10 +44,18 @@ public class _weapon_switch : MonoBehaviour
         _Weapons_class[gun_index].rig.weight = 0;
         _Weapons_class[gun_index].rig.weight = 1;
     }
+    void check_for_ammo()
+    {
+        if (_Weapons_class[gun_index]._Mag <= 0 && _Weapons_class[gun_index]._Amintion == 0 && Input.GetKey(KeyCode.Mouse0))
+        {
+            _Weapon_Switch(Random.Range(0, _Weapons.Length));
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        check_for_ammo();
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _Weapon_Switch(0);
         }
