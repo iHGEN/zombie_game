@@ -11,9 +11,12 @@ public class Player_Health : MonoBehaviour
     public float _Zombie_damage;
     public float _regenerate_health;
     public float _upgrade_health;
+    public AudioClip audioClip;
     Coroutine _Coroutine;
+    AudioSource audioSource;
     void Start()
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
         _player_health = _max_health;
         slider.maxValue = _max_health;
         slider.value = _player_health;
@@ -23,6 +26,7 @@ public class Player_Health : MonoBehaviour
     {      
         _player_health -= num;
         slider.value = _player_health;
+        audioSource.PlayOneShot(audioClip, 0.7f);
     }
     public void upgrade_health()
     {
@@ -36,7 +40,7 @@ public class Player_Health : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "zm_hit")
+        if (collision.gameObject.tag != "zm_hit" && collision.transform.parent.parent.parent.GetComponent<Zombie_health>()._is_die)
         {
             return;
         }

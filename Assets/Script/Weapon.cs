@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
             _Current_bullet = _Maximum_ammo - _Amintion;
             if (_Mag < _Maximum_ammo)
             {
-                _Current_bullet += _Mag;
+                _Amintion += _Mag;
                 _Mag = 0;
             }
             else
@@ -83,11 +83,15 @@ public class Weapon : MonoBehaviour
                 GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, _camera.transform.rotation);
                 bullet.AddComponent<bullet_forword>()._weapon = this;
                 bullte_forword(bullet, raycastHit.point);
-                Destroy(bullet, 2f);
                 if(raycastHit.transform.gameObject.tag == "zm" && raycastHit.transform.gameObject.GetComponent<Zombie_health>() != null)
                 {
+                    Destroy(bullet);
                     _money.add_money(_money.zombie_hit_money);
                     raycastHit.transform.gameObject.GetComponent<Zombie_health>().Helath -= damge;
+                }
+                else
+                {
+                    Destroy(bullet, 2f);
                 }
             }
             nexttimefire = 0;

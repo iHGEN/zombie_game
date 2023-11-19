@@ -91,12 +91,13 @@ public class Zombie_wave : MonoBehaviour
         int index = 0;
         for (int i = 0; i < _area_point.Length; i++)
         {
-            distance_from_point_spawon[i] = Vector3.Distance(this.transform.position, _area_point[i].transform.position);
+            if (_area_point[i] != null)
+                distance_from_point_spawon[i] = Vector3.Distance(this.transform.position, _area_point[i].transform.position);
         }
         small = distance_from_point_spawon[0];
         for (int x = 0; x < distance_from_point_spawon.Length; x++)
         {
-            if (distance_from_point_spawon[x] < small && _area_point[index])
+            if (distance_from_point_spawon[x] < small && _is_area_enable[x] || _is_area_enable[x])
             {
                 small = distance_from_point_spawon[x];
                 index = x;
@@ -154,7 +155,7 @@ public class Zombie_wave : MonoBehaviour
                 var lockd = Quaternion.LookRotation(new Vector3(Zombie_Agents[i].destination.x, 0, Zombie_Agents[i].destination.z));
                 if (lockd.eulerAngles.x != 0 || lockd.eulerAngles.z != 0)
                 {
-                    Zombie_Agents[i].transform.Rotate(0, lockd.eulerAngles.normalized.magnitude, 0);
+                    Zombie_Agents[i].transform.Rotate(0, Zombie_Agents[i].destination.x, 0);
                 }
                 if (distance > Zombie_Agents[i].stoppingDistance && !zombie_Healths[i]._is_die)
                 {
