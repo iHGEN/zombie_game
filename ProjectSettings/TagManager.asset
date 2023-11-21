@@ -6,6 +6,9 @@ TagManager:
   tags:
   - zm
   - zm_hit
+  - cabom
+  - insta-kill
+  - max
   layers:
   - Default
   - TransparentFX

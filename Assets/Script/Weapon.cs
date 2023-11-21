@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     public GameObject _bullet;
     public GameObject _fire_point;
     public int _Maximum_ammo;
+    public int _max_Mag;
     public int _Mag;
     public int _Amintion;
     public float firerate;
@@ -31,6 +32,7 @@ public class Weapon : MonoBehaviour
     public RaycastHit raycastHit;
     void Start()
     {
+        _max_Mag = _Mag;
         audioSource = GetComponent<AudioSource>();
         text.text = $"{_Amintion } / {_Mag}";
     }
@@ -71,7 +73,6 @@ public class Weapon : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0) && nexttimefire > firerate && _Amintion > 0)
         {
-            if (!ammo_seaprt.isPlaying)
             ammo_seaprt.Play();
             if (_Amintion > 0)
             {
