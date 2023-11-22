@@ -1961,6 +1961,7 @@ GameObject:
   - component: {fileID: 2841544809265596920}
   - component: {fileID: 220243092795620223}
   - component: {fileID: 5831805167059932746}
+  - component: {fileID: 8044895475225824311}
   m_Layer: 0
   m_Name: Warzombie F Pedroso
   m_TagString: zm
@@ -2021,7 +2022,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2029,6 +2030,20 @@ CapsuleCollider:
   m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 0.97, z: 0}
+--- !u!114 &8044895475225824311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359317772586364206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Helath: 0
+  _is_die: 0
 --- !u!1 &7363746381035464764
 GameObject:
   m_ObjectHideFlags: 0

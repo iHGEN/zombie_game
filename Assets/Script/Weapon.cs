@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Animations.Rigging;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class Weapon : MonoBehaviour
 {
@@ -85,9 +86,17 @@ public class Weapon : MonoBehaviour
             if(Physics.Raycast(_camera.transform.position, _camera.transform.forward,out raycastHit, range))
             {
                 GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, _camera.transform.rotation);
+                if (raycastHit.transform.gameObject.tag == "zm")
+                {
+                    int zombie_id = zombie_Wave._zombie_id_number.First(x => x.Value == raycastHit.transform.gameObject.GetInstanceID()).Key;
+                    if (!zombie_Wave.zombie_Healths[zombie_id]._is_die)
+                    {
+                        zombie_Wave.zombie_Healths[zombie_id].Helath -= damge;
+                        _money.add_money(_money.zombie_hit_money);
+                    }
+                }
                 bullet.GetComponent<bullet_forword>()._weapon = this;
                 bullet.GetComponent<BoxCollider>().isTrigger = true;
-                bullet.GetComponent<bullet_forword>().zombie_Wave = zombie_Wave;
                 bullte_forword(bullet, raycastHit.point);
                 Destroy(bullet, 2f);
             }

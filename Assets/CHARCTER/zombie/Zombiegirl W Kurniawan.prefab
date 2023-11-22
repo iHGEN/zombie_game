@@ -2440,6 +2440,7 @@ GameObject:
   - component: {fileID: 2998703845645337120}
   - component: {fileID: 3713025792152222578}
   - component: {fileID: 5911809358590539753}
+  - component: {fileID: -4262855952457791144}
   m_Layer: 0
   m_Name: Zombiegirl W Kurniawan
   m_TagString: zm
@@ -2502,7 +2503,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2510,6 +2511,20 @@ CapsuleCollider:
   m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 0.97, z: 0}
+--- !u!114 &-4262855952457791144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762066282200938268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Helath: 0
+  _is_die: 0
 --- !u!1 &8956427377992953118
 GameObject:
   m_ObjectHideFlags: 0

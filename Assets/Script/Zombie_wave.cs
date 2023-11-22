@@ -117,8 +117,8 @@ public class Zombie_wave : MonoBehaviour
                 }
                 random_zombie_charcter = Random.Range(0, zombie.Length);
                 _Zombie_charcter[i] = Instantiate(zombie[random_zombie_charcter], _Spawon_point[random_zombie_spawon].transform.position, Quaternion.identity);
-                _Zombie_charcter[i].AddComponent<Zombie_health>().Helath = zombie_Health.Helath;
                 zombie_Healths[i] = _Zombie_charcter[i].GetComponent<Zombie_health>();
+                zombie_Healths[i].Helath = zombie_Health.Helath; 
                 zombei_animator[i] = _Zombie_charcter[i].GetComponent<Animator>();
                 zombei_animator[i].runtimeAnimatorController = animatorController;
                 _Zombie_charcter[i].AddComponent<NavMeshAgent>();
@@ -246,7 +246,7 @@ public class Zombie_wave : MonoBehaviour
             }
             else
             {
-                    check_wave();
+                if(check_zombie_number() == 0) { check_wave(); };
             }
         }
     }

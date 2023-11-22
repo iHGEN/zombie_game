@@ -52,7 +52,7 @@ public class Player_Health : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag != "zm_hit" || !collision.transform.root.GetComponent<Zombie_health>()._is_die)
+        if (collision.gameObject.tag != "zm_hit")
             return;
         _Coroutine = StartCoroutine(regenerate());
     }
