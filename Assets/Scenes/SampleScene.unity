@@ -6191,6 +6191,7 @@ MonoBehaviour:
   animatorController: {fileID: 9100000, guid: 86c266047e838464197593b985c3e47a, type: 2}
   stoppingDistance: 0.8
   _is_area_enable: 0001
+  zombie_Healths: []
   _is_insta_kill_active: 0
 --- !u!114 &634359120
 MonoBehaviour:
@@ -6222,6 +6223,7 @@ MonoBehaviour:
   - {fileID: 297409461}
   - {fileID: 8752934662316716582}
   _Weapons_class: []
+  gun_index: 0
 --- !u!114 &634359122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9087,6 +9089,11 @@ PrefabInstance:
       objectReference: {fileID: 1789940124}
     - target: {fileID: 3659965522255357966, guid: 6670cafb26296f64f95df48b84ef40e6,
         type: 3}
+      propertyPath: zombie_Wave
+      value: 
+      objectReference: {fileID: 634359119}
+    - target: {fileID: 3659965522255357966, guid: 6670cafb26296f64f95df48b84ef40e6,
+        type: 3}
       propertyPath: iKConstraint.Array.data[0]
       value: 
       objectReference: {fileID: 1591505772}
@@ -9205,6 +9212,11 @@ PrefabInstance:
       propertyPath: _max_Mag
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: -1469355584971742540, guid: 2a1218c22ff486044aa784113bd95a11,
+        type: 3}
+      propertyPath: zombie_Wave
+      value: 
+      objectReference: {fileID: 634359119}
     - target: {fileID: -1469355584971742540, guid: 2a1218c22ff486044aa784113bd95a11,
         type: 3}
       propertyPath: iKConstraint.Array.data[0]
