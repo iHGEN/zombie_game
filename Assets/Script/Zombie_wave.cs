@@ -25,7 +25,7 @@ public class Zombie_wave : MonoBehaviour
     [SerializeField] RuntimeAnimatorController animatorController;
     [SerializeField] float stoppingDistance;
     [SerializeField] bool[] _is_area_enable;
-    Zombie_health[] zombie_Healths;
+    public Zombie_health[] zombie_Healths;
     AudioSource audioSource;
     Animator[] zombei_animator;
     GameObject[] _Zombie_charcter;
@@ -40,9 +40,13 @@ public class Zombie_wave : MonoBehaviour
     int _end_point;
     bool give_him_luck;
     int number_fo_luck;
+    int lucky_obj_round;
+
+    public Dictionary<int, int> _zombie_id_number = new();
     readonly int attack = Animator.StringToHash("attack");
     private void Awake()
     {
+        lucky_obj_round = 2;
         _is_area_enable = new bool[_area_point.Length];
         _is_area_enable[0] = true;
         zombie_Healths = new Zombie_health[max_zombie_count];
@@ -61,7 +65,9 @@ public class Zombie_wave : MonoBehaviour
         {
             _Weapons._Weapons_class[i]._Amintion = _Weapons._Weapons_class[i]._Maximum_ammo;
             _Weapons._Weapons_class[i]._Mag = _Weapons._Weapons_class[i]._max_Mag;
+            _Weapons._Weapons_class[i].update_ammo_stats();
         }
+        _Weapons._Weapons_class[_Weapons.gun_index].update_ammo_stats();
     }
     public void insta_kill()
     {
@@ -89,11 +95,13 @@ public class Zombie_wave : MonoBehaviour
     {
         if (number == 0 || first_wave)
         {
-            //   audioSource.PlayOneShot(audioClip, 0.7f);
+
             wave++;
             zombie_Health.Helath += 5f;
             zombie_count = (first_wave) ? zombie_count : zombie_count = zombie_count + 2;
+            give_him_luck = (lucky_obj_round == wave) ? true : false;
             zombie_per_round = zombie_count;
+            _zombie_id_number.Clear();
             get_nearest_point(true);
             for (int i = 0; i < zombie_count; i++)
             {
@@ -103,10 +111,9 @@ public class Zombie_wave : MonoBehaviour
                 {
                     goto random_point;
                 }
-                if (!give_him_luck)
+                if (give_him_luck)
                 {
                     number_fo_luck = Random.Range(0, lucky_obj.Length);
-                    give_him_luck = true;
                 }
                 random_zombie_charcter = Random.Range(0, zombie.Length);
                 _Zombie_charcter[i] = Instantiate(zombie[random_zombie_charcter], _Spawon_point[random_zombie_spawon].transform.position, Quaternion.identity);
@@ -114,7 +121,6 @@ public class Zombie_wave : MonoBehaviour
                 zombie_Healths[i] = _Zombie_charcter[i].GetComponent<Zombie_health>();
                 zombei_animator[i] = _Zombie_charcter[i].GetComponent<Animator>();
                 zombei_animator[i].runtimeAnimatorController = animatorController;
-                _Zombie_charcter[i].GetComponent<CapsuleCollider>().isTrigger = true;
                 _Zombie_charcter[i].AddComponent<NavMeshAgent>();
                 Zombie_Agents[i] = _Zombie_charcter[i].GetComponent<NavMeshAgent>();
                 Zombie_Agents[i].radius = Zombie_radius;
@@ -122,6 +128,7 @@ public class Zombie_wave : MonoBehaviour
                 Zombie_Agents[i].height = Zombie_hight;
                 Zombie_Agents[i].stoppingDistance = stoppingDistance;
                 Zombie_Agents[i].obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+                _zombie_id_number.Add(i, _Zombie_charcter[i].GetInstanceID());
                 if (_is_insta_kill_active)
                 {
                     insta_kill();
@@ -216,13 +223,14 @@ public class Zombie_wave : MonoBehaviour
             if (_Zombie_charcter[i] != null)
             {
                 var distance = Vector3.Distance(_Zombie_charcter[i].transform.position, target.transform.position);
-                zombei_animator[i].SetBool(attack, distance <= Zombie_Agents[i].stoppingDistance && !zombie_Healths[i]._is_die);
+                zombei_animator[i].SetBool(attack, distance <= stoppingDistance && !zombie_Healths[i]._is_die);
                 if(zombie_Healths[i]._is_die)
                 {
                     Zombie_Agents[i].isStopped = true;
                     if (give_him_luck)
                     {
-                        Instantiate(lucky_obj[number_fo_luck], _Zombie_charcter[i].transform.position, Quaternion.identity);
+                        lucky_obj_round += Random.Range(0, 4);
+                        Instantiate(lucky_obj[number_fo_luck], new Vector3(_Zombie_charcter[i].transform.position.x, _Zombie_charcter[i].transform.position.y + 0.5f, _Zombie_charcter[i].transform.position.z), Quaternion.identity);
                         give_him_luck = false;
                     }
                 }
@@ -238,7 +246,7 @@ public class Zombie_wave : MonoBehaviour
             }
             else
             {
-                check_wave();
+                    check_wave();
             }
         }
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class _Player_Move : MonoBehaviour
@@ -13,14 +11,19 @@ public class _Player_Move : MonoBehaviour
     float result_speed;
     private float _rotationY;
     private float _rotationX;
+    private float _Horizontal;
+    private float _Vertical;
     private Vector3 _currentRotation;
     private Vector3 _smoothVelocity = Vector3.zero;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
     void movement()
     {
+        _Horizontal = Input.GetAxis("Horizontal");
+        _Vertical = Input.GetAxis("Vertical");
         _rotationY += Input.GetAxis("Mouse X") * _mouseSensitivity;
         _rotationX -= Input.GetAxis("Mouse Y") * _mouseSensitivity;
         _rotationX = Mathf.Clamp(_rotationX, -_rotationXMinMax, _rotationXMinMax);
@@ -28,7 +31,7 @@ public class _Player_Move : MonoBehaviour
         _currentRotation = Vector3.SmoothDamp(_currentRotation, nextRotation, ref _smoothVelocity, _smoothTime);
         Camera.main.transform.localEulerAngles = _currentRotation;
         result_speed = Input.GetKey(KeyCode.LeftShift) ? player_speed_run : player_speed;
-        var move = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * new Vector3(Input.GetAxis("Horizontal"), -0.1f, Input.GetAxis("Vertical")) * result_speed * Time.deltaTime;
+        var move = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * new Vector3(_Horizontal, -0.1f, _Vertical) * result_speed * Time.deltaTime;
         rb.MovePosition(transform.position + move);
     }
     // Update is called once per frame

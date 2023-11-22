@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Animations.Rigging;
+using System.Threading.Tasks;
+
 public class Weapon : MonoBehaviour
 {
     public Money _money;
+    public Zombie_wave zombie_Wave;
     public GameObject _bullet;
     public GameObject _fire_point;
     public int _Maximum_ammo;
@@ -15,7 +18,7 @@ public class Weapon : MonoBehaviour
     public float firerate;
     public TextMeshProUGUI text;
     public AudioClip reloading_gun;
-    public float time_to_reload;
+    public int time_to_reload;
     public int damge;
     public int range;
     private int _Current_bullet;
@@ -44,11 +47,11 @@ public class Weapon : MonoBehaviour
     {
 
     }
-    IEnumerator reloading()
+    async void reloading()
     {
-            isreloading = true;
+        isreloading = true;
         audioSource.PlayOneShot(reloading_gun, 0.7f);
-            ammo_seaprt.Stop();
+        ammo_seaprt.Stop();
         if (_Amintion == 0 && _Mag > 0 || _Amintion < _Maximum_ammo && _Mag > 0)
         {
             rig.weight = 0;
@@ -64,10 +67,10 @@ public class Weapon : MonoBehaviour
                 _Amintion += _Current_bullet;
             }
         }
-            yield return new WaitForSeconds(time_to_reload);
+        await Task.Delay(time_to_reload * 1000);
             isreloading = false;
-            rig.weight = 1;
-            text.text = $"{_Amintion } / {_Mag}";
+        rig.weight = 1;
+        text.text = $"{_Amintion } / {_Mag}";
     }
     void _fire()
     {
@@ -82,18 +85,11 @@ public class Weapon : MonoBehaviour
             if(Physics.Raycast(_camera.transform.position, _camera.transform.forward,out raycastHit, range))
             {
                 GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, _camera.transform.rotation);
-                bullet.AddComponent<bullet_forword>()._weapon = this;
+                bullet.GetComponent<bullet_forword>()._weapon = this;
+                bullet.GetComponent<BoxCollider>().isTrigger = true;
+                bullet.GetComponent<bullet_forword>().zombie_Wave = zombie_Wave;
                 bullte_forword(bullet, raycastHit.point);
-                if(raycastHit.transform.gameObject.tag == "zm" && raycastHit.transform.gameObject.GetComponent<Zombie_health>() != null)
-                {
-                    Destroy(bullet);
-                    _money.add_money(_money.zombie_hit_money);
-                    raycastHit.transform.gameObject.GetComponent<Zombie_health>().Helath -= damge;
-                }
-                else
-                {
-                    Destroy(bullet, 2f);
-                }
+                Destroy(bullet, 2f);
             }
             nexttimefire = 0;
             audioSource.PlayOneShot(is_gun_upgrade ? audioClips[1] : audioClips[0] , 0.7f);
@@ -114,7 +110,7 @@ public class Weapon : MonoBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.R) && _Mag > 0 && _Amintion != _Maximum_ammo || _Amintion <= 0 && _Mag > 0)
         {
-            StartCoroutine(reloading());
+            reloading();
             return;
         }
         _fire();

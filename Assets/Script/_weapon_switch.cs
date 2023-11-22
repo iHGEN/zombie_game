@@ -7,7 +7,7 @@ public class _weapon_switch : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] GameObject[] _Weapons;
     public Weapon[] _Weapons_class;
-    int gun_index;
+    public int gun_index;
     void Start()
     {
         load_weapons();
