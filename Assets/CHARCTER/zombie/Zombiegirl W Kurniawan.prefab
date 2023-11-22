@@ -2441,6 +2441,7 @@ GameObject:
   - component: {fileID: 3713025792152222578}
   - component: {fileID: 5911809358590539753}
   - component: {fileID: -4262855952457791144}
+  - component: {fileID: 2228206199191915493}
   m_Layer: 0
   m_Name: Zombiegirl W Kurniawan
   m_TagString: zm
@@ -2525,6 +2526,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Helath: 0
   _is_die: 0
+--- !u!195 &2228206199191915493
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762066282200938268}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &8956427377992953118
 GameObject:
   m_ObjectHideFlags: 0

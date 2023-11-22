@@ -9074,6 +9074,12 @@ PrefabInstance:
       objectReference: {fileID: 634359122}
     - target: {fileID: 3659965522255357966, guid: 6670cafb26296f64f95df48b84ef40e6,
         type: 3}
+      propertyPath: _bullet
+      value: 
+      objectReference: {fileID: 1566234456587724948, guid: 6edd159b711db7e4d9e625ba7a9d8a44,
+        type: 3}
+    - target: {fileID: 3659965522255357966, guid: 6670cafb26296f64f95df48b84ef40e6,
+        type: 3}
       propertyPath: _camera
       value: 
       objectReference: {fileID: 330585545}
@@ -9204,6 +9210,12 @@ PrefabInstance:
       objectReference: {fileID: 634359122}
     - target: {fileID: -1469355584971742540, guid: 2a1218c22ff486044aa784113bd95a11,
         type: 3}
+      propertyPath: _bullet
+      value: 
+      objectReference: {fileID: 1566234456587724948, guid: 6edd159b711db7e4d9e625ba7a9d8a44,
+        type: 3}
+    - target: {fileID: -1469355584971742540, guid: 2a1218c22ff486044aa784113bd95a11,
+        type: 3}
       propertyPath: _camera
       value: 
       objectReference: {fileID: 330585545}
@@ -9297,7 +9309,8 @@ PrefabInstance:
       propertyPath: InitialModule.startSpeed.scalar
       value: -1.8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8284703187584505691, guid: 2a1218c22ff486044aa784113bd95a11, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

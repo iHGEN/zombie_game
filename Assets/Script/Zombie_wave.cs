@@ -22,6 +22,7 @@ public class Zombie_wave : MonoBehaviour
     [SerializeField] GameObject[] _area_point;
     [SerializeField] float Zombie_hight;
     [SerializeField] float Zombie_radius;
+    [SerializeField] ObstacleAvoidanceType obstacleAvoidanceType;
     [SerializeField] RuntimeAnimatorController animatorController;
     [SerializeField] float stoppingDistance;
     [SerializeField] bool[] _is_area_enable;
@@ -121,13 +122,12 @@ public class Zombie_wave : MonoBehaviour
                 zombie_Healths[i].Helath = zombie_Health.Helath; 
                 zombei_animator[i] = _Zombie_charcter[i].GetComponent<Animator>();
                 zombei_animator[i].runtimeAnimatorController = animatorController;
-                _Zombie_charcter[i].AddComponent<NavMeshAgent>();
                 Zombie_Agents[i] = _Zombie_charcter[i].GetComponent<NavMeshAgent>();
                 Zombie_Agents[i].radius = Zombie_radius;
                 Zombie_Agents[i].speed = Random.Range(0.5f, 2f);
                 Zombie_Agents[i].height = Zombie_hight;
                 Zombie_Agents[i].stoppingDistance = stoppingDistance;
-                Zombie_Agents[i].obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+                Zombie_Agents[i].obstacleAvoidanceType = obstacleAvoidanceType;
                 _zombie_id_number.Add(i, _Zombie_charcter[i].GetInstanceID());
                 if (_is_insta_kill_active)
                 {
@@ -234,12 +234,12 @@ public class Zombie_wave : MonoBehaviour
                         give_him_luck = false;
                     }
                 }
-                var lockd = Quaternion.LookRotation(new Vector3(Zombie_Agents[i].destination.x, 0, Zombie_Agents[i].destination.z));
-                if (lockd.eulerAngles.x != 0 || lockd.eulerAngles.z != 0)
+                var lockd = Quaternion.LookRotation(new Vector3(Zombie_Agents[i].destination.x,0));
+                if (lockd.eulerAngles.x != 0)
                 {
                     Zombie_Agents[i].transform.Rotate(0, Zombie_Agents[i].destination.x, 0);
                 }
-                if (distance > Zombie_Agents[i].stoppingDistance && !zombie_Healths[i]._is_die)
+                if (distance > stoppingDistance && !zombie_Healths[i]._is_die)
                 {
                     Zombie_Agents[i].destination = target.transform.position;
                 }
