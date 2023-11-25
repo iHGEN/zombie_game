@@ -289,7 +289,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1615746074893671863}
-  - component: {fileID: 8284703187584505691}
   - component: {fileID: -1469355584971742540}
   - component: {fileID: 3568080252755039446}
   m_Layer: 0
@@ -330,27 +329,6 @@ Transform:
   - {fileID: 7747868297464869778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -1.464, y: 82.51, z: -11.156}
---- !u!95 &8284703187584505691
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818993614052929516}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 11604b6592771e049af136d2cae807b4, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &-1469355584971742540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,21 +341,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859175c6766fc444483e91e0588d4779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _money: {fileID: 0}
+  zombie_Wave: {fileID: 0}
   _bullet: {fileID: 100000, guid: 16778e0846ccc934ea5d52b701c0858c, type: 3}
   _fire_point: {fileID: 3306284615832155065}
   _Maximum_ammo: 30
+  _max_Mag: 0
   _Mag: 120
   _Amintion: 30
   firerate: 0.1
   text: {fileID: 0}
   reloading_gun: {fileID: 8300000, guid: 2578320872a27834c8722fdb24201d9b, type: 3}
-  time_to_reload: 1.5
+  time_to_reload: 1
   damge: 15
   range: 20
   audioClips:
   - {fileID: 8300000, guid: eae539703e633e64fb60634de98020d4, type: 3}
   - {fileID: 8300000, guid: 194f0757e24473b4aa2d8521312bd5b3, type: 3}
   ammo_seaprt: {fileID: 2920317725262200773}
+  isreloading: 0
   _camera: {fileID: 0}
   rig: {fileID: 0}
   point_weapons:

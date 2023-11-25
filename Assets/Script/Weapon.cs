@@ -34,9 +34,13 @@ public class Weapon : MonoBehaviour
     public Transform[] point_weapons;
     public TwoBoneIKConstraint[] iKConstraint;
     public RaycastHit raycastHit;
-    void Start()
+    private void Awake()
     {
         _max_Mag = _Mag;
+        _Amintion = _Maximum_ammo;
+    }
+    void Start()
+    {
         audioSource = GetComponent<AudioSource>();
         text.text = $"{_Amintion } / {_Mag}";
     }
@@ -96,6 +100,7 @@ public class Weapon : MonoBehaviour
                     }
                 }
                 bullet.GetComponent<bullet_forword>()._weapon = this;
+                bullet.GetComponent<bullet_forword>()._is_Sentry_Gun = false;
                 bullet.GetComponent<BoxCollider>().isTrigger = true;
                 bullte_forword(bullet, raycastHit.point);
                 Destroy(bullet, 2f);

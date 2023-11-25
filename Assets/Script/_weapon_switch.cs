@@ -23,7 +23,7 @@ public class _weapon_switch : MonoBehaviour
     }
     void _Weapon_Switch(int num)
     {
-        if (_Weapons[num] != null)
+        if (_Weapons[num] != null && num < _Weapons.Length)
         {
             num = num > 0 && num < _Weapons.Length ? num : 0;
             gun_index = num;
@@ -38,11 +38,11 @@ public class _weapon_switch : MonoBehaviour
                     gun_index = num;
                 }
             }
+            _Weapons_class[gun_index].iKConstraint[0].data.target = _Weapons_class[gun_index].point_weapons[0];
+            _Weapons_class[gun_index].iKConstraint[1].data.target = _Weapons_class[gun_index].point_weapons[1];
+            _Weapons_class[gun_index].rig.weight = 0;
+            _Weapons_class[gun_index].rig.weight = 1;
         }
-        _Weapons_class[gun_index].iKConstraint[0].data.target = _Weapons_class[gun_index].point_weapons[0];
-        _Weapons_class[gun_index].iKConstraint[1].data.target = _Weapons_class[gun_index].point_weapons[1];
-        _Weapons_class[gun_index].rig.weight = 0;
-        _Weapons_class[gun_index].rig.weight = 1;
     }
     void check_for_ammo()
     {

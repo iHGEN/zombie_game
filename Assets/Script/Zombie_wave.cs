@@ -17,8 +17,8 @@ public class Zombie_wave : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] int zombie_count;
     [SerializeField] int max_zombie_count;
-    [SerializeField] AudioClip audioClip;
-    [SerializeField] GameObject[] _Spawon_point;
+    [SerializeField] AudioClip new_round;
+    public GameObject[] _Spawon_point;
     [SerializeField] GameObject[] _area_point;
     [SerializeField] float Zombie_hight;
     [SerializeField] float Zombie_radius;
@@ -29,20 +29,20 @@ public class Zombie_wave : MonoBehaviour
     public Zombie_health[] zombie_Healths;
     AudioSource audioSource;
     Animator[] zombei_animator;
-    GameObject[] _Zombie_charcter;
+    public GameObject[] _Zombie_charcter;
     NavMeshAgent[] Zombie_Agents;
     public bool _is_insta_kill_active;
+    public int attack_num;
     int wave = 0;
     int zombie_per_round;
     int random_zombie_charcter;
     int random_zombie_spawon;
     float[] distance_from_point_spawon;
-    int _start_point;
-    int _end_point;
+    public int _start_point;
+    public int _end_point;
     bool give_him_luck;
     int number_fo_luck;
     int lucky_obj_round;
-
     public Dictionary<int, int> _zombie_id_number = new();
     readonly int attack = Animator.StringToHash("attack");
     private void Awake()
@@ -99,6 +99,7 @@ public class Zombie_wave : MonoBehaviour
 
             wave++;
             zombie_Health.Helath += 5f;
+            audioSource.PlayOneShot(new_round, 0.7f);
             zombie_count = (first_wave) ? zombie_count : zombie_count = zombie_count + 2;
             give_him_luck = (lucky_obj_round == wave) ? true : false;
             zombie_per_round = zombie_count;
@@ -124,7 +125,7 @@ public class Zombie_wave : MonoBehaviour
                 zombei_animator[i].runtimeAnimatorController = animatorController;
                 Zombie_Agents[i] = _Zombie_charcter[i].GetComponent<NavMeshAgent>();
                 Zombie_Agents[i].radius = Zombie_radius;
-                Zombie_Agents[i].speed = Random.Range(0.5f, 2f);
+                Zombie_Agents[i].speed = Random.Range(1f, 3.5f);
                 Zombie_Agents[i].height = Zombie_hight;
                 Zombie_Agents[i].stoppingDistance = stoppingDistance;
                 Zombie_Agents[i].obstacleAvoidanceType = obstacleAvoidanceType;
@@ -136,7 +137,7 @@ public class Zombie_wave : MonoBehaviour
             }
         }
     }
-    void get_nearest_point(bool nearby)
+    public void get_nearest_point(bool nearby)
     {
         bool is_spaown_found = false;
         float small;
@@ -246,7 +247,7 @@ public class Zombie_wave : MonoBehaviour
             }
             else
             {
-                if(check_zombie_number() == 0) { check_wave(); };
+                check_wave();
             }
         }
     }

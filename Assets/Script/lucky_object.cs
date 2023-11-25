@@ -5,6 +5,8 @@ using UnityEngine;
 public class lucky_object : MonoBehaviour
 {
     public Zombie_wave _zombie_Wave;
+    public _weapon_switch _Weapon_Switch;
+
     public AudioClip[] audioClips;
     AudioSource audioSource;
     private void Start()

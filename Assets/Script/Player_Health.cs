@@ -31,6 +31,7 @@ public class Player_Health : MonoBehaviour
     public void upgrade_health()
     {
         _max_health = _upgrade_health;
+        slider.maxValue = _max_health;
         add_health();
     }
     void add_health()
