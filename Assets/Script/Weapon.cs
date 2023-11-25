@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
         {
             rig.weight = 0;
             _Current_bullet = _Maximum_ammo - _Amintion;
-            if (_Mag < _Maximum_ammo)
+            if (_Mag < _Amintion)
             {
                 _Amintion += _Mag;
                 _Mag = 0;

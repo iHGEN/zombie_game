@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using TMPro;
 
 public class buy_things : MonoBehaviour
@@ -7,6 +8,7 @@ public class buy_things : MonoBehaviour
     [SerializeField] Money _money;
     [SerializeField] _weapon_switch _Weapon_Switch;
     [SerializeField] Zombie_wave zombie_Wave;
+    [SerializeField] Sentry_Gun _sentry;
     [SerializeField] GameObject[] _items;
     [SerializeField] int[] _money_cost;
     [SerializeField] GameObject[] _items_point;
@@ -39,29 +41,39 @@ public class buy_things : MonoBehaviour
         _is_nearby = new bool[_items.Length];
         audioSource = GetComponent<AudioSource>();
     }
+    IEnumerator sentry(int num)
+    {
+        _sentry._is_finsh = false;
+        audioSource.PlayOneShot(_description_audio[num], 0.7f);
+        yield return new WaitForSeconds(_sentry.sentry_time);
+        _sentry._is_finsh = true;
+    }
     void check_dis()
     {
         for (int i = 0; i < _items_point.Length; i++)
         {
-            nearby = false;
-            var dis = Vector3.Distance(this.transform.position, _items_point[i].transform.position);
-            if (dis < _maxdis)
+            if (_items_point[i] != null)
             {
-                _is_nearby[i] = true;
-                nearby = true;
+                nearby = false;
+                var dis = Vector3.Distance(this.transform.position, _items_point[i].transform.position);
+                if (dis < _maxdis)
+                {
+                    _is_nearby[i] = true;
+                    nearby = true;
+                    _name_of_items.gameObject.SetActive(nearby);
+                    get_info(i);
+                    if (Input.GetKeyDown(KeyCode.F)) { get_items(i); }
+                    break;
+                }
+                else
+                {
+                    _is_nearby[i] = false;
+                }
+            }
+            if (!nearby)
+            {
                 _name_of_items.gameObject.SetActive(nearby);
-                get_info(i);
-                if (Input.GetKeyDown(KeyCode.F)) { get_items(i); }
-                break;
             }
-            else
-            {
-                _is_nearby[i] = false;
-            }
-        }
-        if (!nearby)
-        {
-            _name_of_items.gameObject.SetActive(nearby);
         }
     }
     bool check_money(int num)
@@ -92,10 +104,55 @@ public class buy_things : MonoBehaviour
             case 1:
                 if (_can_be_take[num])
                 {
-                    _can_be_take[num] = false;
                     if (check_money(num))
                     {
+                        _can_be_take[num] = false;
                         _player_Health.upgrade_health();
+                        audioSource.PlayOneShot(_description_audio[num], 0.7f);
+                    }
+                }
+                break;
+            case 2:
+                if (_can_be_take[num])
+                {
+                    if (check_money(num) && _sentry._is_finsh)
+                    {
+                            StartCoroutine(sentry(num));
+                    }
+                }
+                break;
+            case 3:
+                if (_can_be_take[num])
+                {
+                    if (check_money(num))
+                    {
+                        _can_be_take[num] = false;
+                        Destroy(_items_point[num]);
+                        zombie_Wave._is_area_enable[1] = true;
+                        audioSource.PlayOneShot(_description_audio[num], 0.7f);
+                    }
+                }
+                break;
+            case 4:
+                if (_can_be_take[num])
+                {
+                    if (check_money(num))
+                    {
+                        _can_be_take[num] = false;
+                        Destroy(_items_point[num]);
+                        zombie_Wave._is_area_enable[2] = true;
+                        audioSource.PlayOneShot(_description_audio[num], 0.7f);
+                    }
+                }
+                break;
+            case 5:
+                if (_can_be_take[num])
+                {
+                    if (check_money(num))
+                    {
+                        _can_be_take[num] = false;
+                        Destroy(_items_point[num]);
+                        zombie_Wave._is_area_enable[2] = true;
                         audioSource.PlayOneShot(_description_audio[num], 0.7f);
                     }
                 }
