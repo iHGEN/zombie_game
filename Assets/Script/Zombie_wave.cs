@@ -226,7 +226,7 @@ public class Zombie_wave : MonoBehaviour
                     Zombie_Agents[i].isStopped = true;
                     if (give_him_luck)
                     {
-                        lucky_obj_round += Random.Range(0, 4);
+                        lucky_obj_round += Random.Range(1, 5);
                         Instantiate(lucky_obj[number_fo_luck], new Vector3(_Zombie_charcter[i].transform.position.x, _Zombie_charcter[i].transform.position.y + 0.5f, _Zombie_charcter[i].transform.position.z), Quaternion.identity);
                         give_him_luck = false;
                     }

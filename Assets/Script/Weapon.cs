@@ -9,6 +9,7 @@ using System.Linq;
 public class Weapon : MonoBehaviour
 {
     public Money _money;
+    public Material[] materials;
     public Zombie_wave zombie_Wave;
     public GameObject _bullet;
     public GameObject _fire_point;
@@ -34,10 +35,11 @@ public class Weapon : MonoBehaviour
     public Transform[] point_weapons;
     public TwoBoneIKConstraint[] iKConstraint;
     public RaycastHit raycastHit;
+    bool is_ammo_upgrade;
     private void Awake()
     {
-        _max_Mag = _Mag;
-        _Amintion = _Maximum_ammo;
+        //_max_Mag = _Mag;
+        //_Amintion = _Maximum_ammo;
     }
     void Start()
     {
@@ -48,9 +50,19 @@ public class Weapon : MonoBehaviour
     {
         text.text = $"{_Amintion } / {_Mag}";
     }
-    void Upgrade_gun()
+   public void Upgrade_gun()
     {
-
+        if (!is_ammo_upgrade)
+        {
+            _max_Mag = _max_Mag * 2;
+            _Maximum_ammo = _Maximum_ammo * 2;
+            _Amintion = _Maximum_ammo;
+            _Mag = _max_Mag;
+            is_ammo_upgrade = true;
+            is_gun_upgrade = true;
+        }
+        this.GetComponent<Renderer>().material = materials[Random.Range(0, materials.Length)];
+        damge += 40;
     }
     async void reloading()
     {
@@ -61,7 +73,7 @@ public class Weapon : MonoBehaviour
         {
             rig.weight = 0;
             _Current_bullet = _Maximum_ammo - _Amintion;
-            if (_Mag < _Amintion)
+            if (_Mag < _Current_bullet)
             {
                 _Amintion += _Mag;
                 _Mag = 0;
@@ -82,12 +94,9 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && nexttimefire > firerate && _Amintion > 0)
         {
             ammo_seaprt.Play();
-            if (_Amintion > 0)
-            {
-                _Amintion--;
-                text.text = $"{_Amintion } / {_Mag}";
-            }
-            if(Physics.Raycast(_camera.transform.position, _camera.transform.forward,out raycastHit, range))
+            _Amintion--;
+            text.text = $"{_Amintion } / {_Mag}";
+            if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out raycastHit, range))
             {
                 GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, _camera.transform.rotation);
                 if (raycastHit.transform.gameObject.tag == "zm")
@@ -106,9 +115,9 @@ public class Weapon : MonoBehaviour
                 Destroy(bullet, 2f);
             }
             nexttimefire = 0;
-            audioSource.PlayOneShot(is_gun_upgrade ? audioClips[1] : audioClips[0] , 0.7f);
+            audioSource.PlayOneShot(is_gun_upgrade ? audioClips[1] : audioClips[0], 0.7f);
         }
-        if(!Input.GetKey(KeyCode.Mouse0) || _Amintion <= 0)
+        if (!Input.GetKey(KeyCode.Mouse0) || _Amintion <= 0)
         {
             ammo_seaprt.Stop();
         }

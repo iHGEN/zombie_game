@@ -52,7 +52,7 @@ public class Sentry_Gun : MonoBehaviour
                     particleSystem.Play();
                 }
                 GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, this.transform.rotation);
-                if (raycastHit.transform.gameObject.tag == "zm")
+                if (raycastHit.transform.gameObject.tag == "zm" && zombie_Wave._zombie_id_number.Count != 0)
                 {
                     int zombie_id = zombie_Wave._zombie_id_number.First(x => x.Value == raycastHit.transform.gameObject.GetInstanceID()).Key;
                     if (!zombie_Wave.zombie_Healths[zombie_id]._is_die)
