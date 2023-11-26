@@ -9,6 +9,7 @@ using System.Linq;
 public class Weapon : MonoBehaviour
 {
     public Money _money;
+    public GameObject weapon__to_color;
     public Material[] materials;
     public Zombie_wave zombie_Wave;
     public GameObject _bullet;
@@ -61,7 +62,7 @@ public class Weapon : MonoBehaviour
             is_ammo_upgrade = true;
             is_gun_upgrade = true;
         }
-        this.GetComponent<Renderer>().material = materials[Random.Range(0, materials.Length)];
+        weapon__to_color.GetComponent<Renderer>().material = materials[Random.Range(0, materials.Length)];
         damge += 40;
     }
     async void reloading()
@@ -73,6 +74,10 @@ public class Weapon : MonoBehaviour
         {
             rig.weight = 0;
             _Current_bullet = _Maximum_ammo - _Amintion;
+            if (_Mag < _max_Mag / 3)
+            {
+                audioSource.PlayOneShot(audioClips[2], 0.7f);
+            }
             if (_Mag < _Current_bullet)
             {
                 _Amintion += _Mag;
@@ -85,7 +90,7 @@ public class Weapon : MonoBehaviour
             }
         }
         await Task.Delay(time_to_reload * 1000);
-            isreloading = false;
+        isreloading = false;
         rig.weight = 1;
         text.text = $"{_Amintion } / {_Mag}";
     }

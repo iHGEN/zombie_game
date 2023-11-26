@@ -10,7 +10,7 @@ public class Zombie_wave : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] GameObject[] lucky_obj;
     [SerializeField] _weapon_switch _Weapons;
-    [SerializeField] Money _money;
+    public Money _money;
     [SerializeField] Zombie_health zombie_Health;
     [SerializeField] GameObject[] zombie;
     [SerializeField] GameObject target;
@@ -33,7 +33,8 @@ public class Zombie_wave : MonoBehaviour
     public GameObject[] _Zombie_charcter;
     NavMeshAgent[] Zombie_Agents;
     public bool _is_insta_kill_active;
-    int wave = 0;
+    public int _killcount = 0;
+    public int wave = 0;
     int zombie_per_round;
     int random_zombie_charcter;
     int random_zombie_spawon;
@@ -77,6 +78,16 @@ public class Zombie_wave : MonoBehaviour
             if(_Zombie_charcter[i] != null)
             {
                 zombie_Healths[i].Helath = 1;
+            }
+        }
+    }
+    public void end_round()
+    {
+        for (int i = 0; i < _Zombie_charcter.Length; i++)
+        {
+            if (_Zombie_charcter[i] != null)
+            {
+                zombie_Healths[i].Helath = 0;
             }
         }
     }
@@ -223,7 +234,11 @@ public class Zombie_wave : MonoBehaviour
                 zombei_animator[i].SetBool(attack, distance <= _attack_distance && !zombie_Healths[i]._is_die);
                 if(zombie_Healths[i]._is_die)
                 {
-                    Zombie_Agents[i].isStopped = true;
+                    if(!Zombie_Agents[i].isStopped)
+                    {
+                        Zombie_Agents[i].isStopped = true;
+                        _killcount++;
+                    }
                     if (give_him_luck)
                     {
                         lucky_obj_round += Random.Range(1, 5);
@@ -231,11 +246,6 @@ public class Zombie_wave : MonoBehaviour
                         give_him_luck = false;
                     }
                 }
-                //var lockd = Quaternion.LookRotation(new Vector3(Zombie_Agents[i].destination.x,0));
-                //if (lockd.eulerAngles.x != 0)
-                //{
-                //    Zombie_Agents[i].transform.Rotate(0, Zombie_Agents[i].destination.x, 0);
-                //}
                 if (distance > _attack_distance && !zombie_Healths[i]._is_die)
                 {
                     Zombie_Agents[i].destination = target.transform.position;

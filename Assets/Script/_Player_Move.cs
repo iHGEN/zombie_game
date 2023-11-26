@@ -8,6 +8,9 @@ public class _Player_Move : MonoBehaviour
     [SerializeField] float _mouseSensitivity;
     [SerializeField] private float _smoothTime;
     [SerializeField] float _rotationXMinMax;
+    [SerializeField] Transform checkground;
+    [SerializeField] LayerMask mask;
+    [SerializeField] float jump;
     float result_speed;
     private float _rotationY;
     private float _rotationX;
@@ -34,9 +37,24 @@ public class _Player_Move : MonoBehaviour
             _currentRotation = Vector3.SmoothDamp(_currentRotation, nextRotation, ref _smoothVelocity, _smoothTime);
             Camera.main.transform.localEulerAngles = _currentRotation;
             result_speed = Input.GetKey(KeyCode.LeftShift) ? player_speed_run : player_speed;
-            var move = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * new Vector3(_Horizontal, -0.1f, _Vertical) * result_speed * Time.deltaTime;
-            rb.MovePosition(transform.position + move);
+            var move = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * new Vector3(_Horizontal,-0.1f, _Vertical) * result_speed * Time.deltaTime;
+            if (is_grounded())
+            {
+                rb.MovePosition(transform.position + move);
+            }
+            else
+            {
+                rb.MovePosition(transform.position + move * 1.5f);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && is_grounded())
+            {
+                rb.AddForce(new Vector3(0, jump *10, 0), ForceMode.Impulse);
+            }
         }
+    }
+    bool is_grounded()
+    {
+        return Physics.CheckSphere(checkground.transform.position, 0.1f, mask);
     }
     // Update is called once per frame
     void FixedUpdate()

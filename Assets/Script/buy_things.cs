@@ -19,6 +19,7 @@ public class buy_things : MonoBehaviour
     [SerializeField] bool[] _can_be_take;
     [SerializeField] AudioClip deny;
     [SerializeField] AudioClip accept;
+    [SerializeField] AudioClip tleport;
     AudioSource audioSource;
     int gumcount;
     bool[] _is_nearby;
@@ -28,6 +29,7 @@ public class buy_things : MonoBehaviour
         if(gumcount <= 0) { return; }
         gumcount--;
         zombie_Wave.get_nearest_point(false);
+        audioSource.PlayOneShot(tleport, 0.7f);
         transform.position = zombie_Wave._Spawon_point[Random.Range(zombie_Wave._start_point, zombie_Wave._end_point)].transform.position;
         _items[0].GetComponent<TextMeshProUGUI>().text = $"Gum Count : {gumcount}";
     }
@@ -138,6 +140,9 @@ public class buy_things : MonoBehaviour
                 break;
             case 8:
                 ammo(num);
+                break;
+            case 9:
+                upgrade_weapon(num);
                 break;
 
         }

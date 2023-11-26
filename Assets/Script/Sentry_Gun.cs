@@ -70,10 +70,6 @@ public class Sentry_Gun : MonoBehaviour
             audioSource.PlayOneShot(audioClip, 0.7f);
             nexttimefire = 0;
         }
-        else
-        {
-            particleSystem.Stop();
-        }
     }
     public void Custom_lockat(GameObject gameObject)
     {
@@ -90,8 +86,7 @@ public class Sentry_Gun : MonoBehaviour
     void Update()
     {
         nexttimefire += Time.deltaTime;
-        if (_is_finsh)
-            return;
+        if (_is_finsh) { particleSystem.Stop(); return; }
         check_nearest_zombie(zombie_Wave._Zombie_charcter);
         if (_is_zombie_near_distance_found)
         {

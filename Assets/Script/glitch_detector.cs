@@ -22,7 +22,7 @@ public class glitch_detector : MonoBehaviour
     void Update()
     {
         check_area();
-        if(this.transform.position.y < -0.1 || this.transform.position.y > 5.5)
+        if(this.transform.position.y < -0.1 || this.transform.position.y > 12)
         {
             this.transform.position = zombie_Wave._area_point[0].transform.position;
         }
