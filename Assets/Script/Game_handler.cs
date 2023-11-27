@@ -21,6 +21,10 @@ public class Game_handler : MonoBehaviour
         _Save.load();
         _money.Update_money();
         audioSource = this.GetComponent<AudioSource>();
+        if (_Save.player.number_save == 0)
+        {
+            _Save.player.number_save = 2;
+        }
     }
     public async void Win()
     {
@@ -46,10 +50,6 @@ public class Game_handler : MonoBehaviour
                 _Save.player.number_save--;
                 _Save.player._Money = _money._current_money;
             }
-        }
-        else
-        {
-            _Save.player.number_save = 2;
         }
         if (_Save.player._highest_round < zombie_Wave.wave)
         {

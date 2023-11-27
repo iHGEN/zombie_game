@@ -16647,8 +16647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac2dc1a0fa97e148827377adbc8c54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_speed: 4
-  player_speed_run: 6
+  player_speed: 3
+  player_speed_run: 5
   _mouseSensitivity: 4
   _smoothTime: 0.1
   _rotationXMinMax: 60
