@@ -71,12 +71,12 @@ public class Sentry_Gun : MonoBehaviour
             nexttimefire = 0;
         }
     }
-    public void Custom_lockat(GameObject gameObject)
+    public void Custom_lockat(GameObject target)
     {
-        Vector3 dirction = gameObject.transform.position - this.transform.position;
+        Vector3 dirction = target.transform.position - gameObject.transform.position;
         Quaternion lockat = Quaternion.LookRotation(dirction);
         Vector3 rot = lockat.eulerAngles;
-        this.transform.rotation = Quaternion.Euler(rot.x - 0.2f, rot.y, 0);
+        gameObject.transform.rotation = Quaternion.Euler(rot.x - 0.2f, rot.y, 0);
     }
     void bullte_forword(GameObject gameObject, Vector3 endlocation)
     {

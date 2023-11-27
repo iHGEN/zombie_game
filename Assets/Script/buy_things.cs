@@ -8,7 +8,7 @@ public class buy_things : MonoBehaviour
     [SerializeField] Money _money;
     [SerializeField] _weapon_switch _Weapon_Switch;
     [SerializeField] Zombie_wave zombie_Wave;
-    [SerializeField] Sentry_Gun _sentry;
+    [SerializeField] Sentry_Gun[] _sentry;
     [SerializeField] GameObject[] _items;
     [SerializeField] int[] _money_cost;
     [SerializeField] GameObject[] _items_point;
@@ -43,12 +43,12 @@ public class buy_things : MonoBehaviour
         _is_nearby = new bool[_items.Length];
         audioSource = GetComponent<AudioSource>();
     }
-    IEnumerator sentry(int num)
+    IEnumerator sentry(int num,int number)
     {
-        _sentry._is_finsh = false;
+        _sentry[number]._is_finsh = false;
         audioSource.PlayOneShot(_description_audio[num], 0.7f);
-        yield return new WaitForSeconds(_sentry.sentry_time);
-        _sentry._is_finsh = true;
+        yield return new WaitForSeconds(_sentry[number].sentry_time);
+        _sentry[number]._is_finsh = true;
     }
     void check_dis()
     {
@@ -117,9 +117,9 @@ public class buy_things : MonoBehaviour
             case 2:
                 if (_can_be_take[num])
                 {
-                    if (check_money(num) && _sentry._is_finsh)
+                    if (check_money(num) && _sentry[0]._is_finsh)
                     {
-                            StartCoroutine(sentry(num));
+                            StartCoroutine(sentry(num,0));
                     }
                 }
                 break;
@@ -143,6 +143,15 @@ public class buy_things : MonoBehaviour
                 break;
             case 9:
                 upgrade_weapon(num);
+                break;
+            case 10:
+                if (_can_be_take[num])
+                {
+                    if (check_money(num) && _sentry[1]._is_finsh)
+                    {
+                        StartCoroutine(sentry(num, 1));
+                    }
+                }
                 break;
 
         }

@@ -8,7 +8,7 @@ public class scenes : MonoBehaviour
     // Start is called before the first frame update
     public void load_scenes(int num)
     {
-        SceneManager.LoadScene(num);
+        SceneManager.LoadScene(num, LoadSceneMode.Single);
     }
     public void exit()
     {

@@ -9,6 +9,7 @@ using System.Linq;
 public class Weapon : MonoBehaviour
 {
     public Money _money;
+    public GameObject _HitMark;
     public GameObject weapon__to_color;
     public Material[] materials;
     public Zombie_wave zombie_Wave;
@@ -41,6 +42,10 @@ public class Weapon : MonoBehaviour
     {
         //_max_Mag = _Mag;
         //_Amintion = _Maximum_ammo;
+    }
+    void hitMarkdisable()
+    {
+        _HitMark.SetActive(false);
     }
     void Start()
     {
@@ -112,6 +117,8 @@ public class Weapon : MonoBehaviour
                         zombie_Wave.zombie_Healths[zombie_id].Helath -= damge;
                         _money.add_money(_money.zombie_hit_money);
                     }
+                    _HitMark.SetActive(true);
+                    Invoke(nameof(hitMarkdisable), 0.2f);
                 }
                 bullet.GetComponent<bullet_forword>()._weapon = this;
                 bullet.GetComponent<bullet_forword>()._is_Sentry_Gun = false;
