@@ -60,6 +60,7 @@ public class Zombie_wave : MonoBehaviour
         Zombie_Agents = new NavMeshAgent[max_zombie_count];
         create_zombie_wave(zombie_count, true);
         check_wave();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void max_ammo()
     {
@@ -119,8 +120,8 @@ public class Zombie_wave : MonoBehaviour
             for (int i = 0; i < zombie_count; i++)
             {
             random_point:
-                random_zombie_spawon = Random.Range(_start_point, _end_point);
-                if (random_zombie_spawon > _Spawon_point.Length - 1 || _Spawon_point[random_zombie_spawon] == null)
+                random_zombie_spawon = Random.Range(_start_point, _end_point + 1);
+                if (random_zombie_spawon > _Spawon_point.Length || _Spawon_point[random_zombie_spawon] == null)
                 {
                     goto random_point;
                 }
@@ -206,6 +207,11 @@ public class Zombie_wave : MonoBehaviour
                 _end_point = 9;
                 break;
         }
+    }
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     void check_wave()
     {

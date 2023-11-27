@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Player
 {
-   public int _life;
-    public int _id;
-    public string _player_name;
+    public int _Money;
+    public int _highest_round = 0;
+    public int number_save = 2;
 }

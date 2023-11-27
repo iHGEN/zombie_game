@@ -1,24 +1,14 @@
 fileFormatVersion: 2
-guid: f8fafbc41e4d4b74a8f75b2fbabfb492
+guid: ba82c8748792fe542bd6d53fbb4b486a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: world_war_zombie_diffuse
-    second: {fileID: 2800000, guid: 6d098bdc1b3e7f04ba471291e99ceb8c, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: world_war_zombie_normal
-    second: {fileID: 2800000, guid: 23a1670b3b0afa24d89cd7fafe21da6f, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: world_war_zombie_specular
-    second: {fileID: 2800000, guid: 3ad24169e0f5b694fbd6e7d20ee7b7cd, type: 3}
+      name: LP
+    second: {fileID: 2100000, guid: f99a3e9948ccc104b8c401b2c4afde6a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -39,7 +29,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -108,13 +98,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

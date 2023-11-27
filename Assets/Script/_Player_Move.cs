@@ -22,7 +22,6 @@ public class _Player_Move : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
     }
     void movement()
     {

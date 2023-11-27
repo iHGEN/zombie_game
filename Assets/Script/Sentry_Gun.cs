@@ -14,7 +14,7 @@ public class Sentry_Gun : MonoBehaviour
     [SerializeField] float _distance_to_fire;
     [SerializeField] AudioClip audioClip;
     public bool _is_finsh = true;
-    [SerializeField] ParticleSystem particleSystem;
+    [SerializeField] ParticleSystem _particleSystem;
     public int sentry_time;
     AudioSource audioSource;
     int get_zombie_number;
@@ -47,9 +47,9 @@ public class Sentry_Gun : MonoBehaviour
         {
             if (Physics.Raycast(this.transform.position, this.transform.forward, out raycastHit, range))
             {
-                if (!particleSystem.isPlaying)
+                if (!_particleSystem.isPlaying)
                 {
-                    particleSystem.Play();
+                    _particleSystem.Play();
                 }
                 GameObject bullet = Instantiate(_bullet, _fire_point.transform.position, this.transform.rotation);
                 if (raycastHit.transform.gameObject.tag == "zm" && zombie_Wave._zombie_id_number.Count != 0)
@@ -86,7 +86,7 @@ public class Sentry_Gun : MonoBehaviour
     void Update()
     {
         nexttimefire += Time.deltaTime;
-        if (_is_finsh) { particleSystem.Stop(); return; }
+        if (_is_finsh) { _particleSystem.Stop(); return; }
         check_nearest_zombie(zombie_Wave._Zombie_charcter);
         if (_is_zombie_near_distance_found)
         {

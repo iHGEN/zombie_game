@@ -8,18 +8,13 @@ using TMPro;
 public class Player_Health : MonoBehaviour
 {
     [SerializeField] Slider slider;
-    [SerializeField] scenes scenes;
-    [SerializeField] GameObject[] hide;
-    [SerializeField] GameObject panel;
-    [SerializeField] TextMeshProUGUI text;
-    [SerializeField] Zombie_wave zombie_Wave;
+    [SerializeField] Game_handler game_Handler;
     public float _player_health;
     public float _max_health;
     public float _Zombie_damage;
     public float _regenerate_health;
     public float _upgrade_health;
     public AudioClip audioClip;
-    public AudioClip round_end;
     Coroutine _Coroutine;
     AudioSource audioSource;
     void Start()
@@ -29,25 +24,15 @@ public class Player_Health : MonoBehaviour
         slider.maxValue = _max_health;
         slider.value = _player_health;
     }
-
-    async void take_damage(float num)
+   
+     void take_damage(float num)
     {
         _player_health -= num;
         slider.value = _player_health;
         audioSource.PlayOneShot(audioClip, 0.7f);
         if (_player_health <= 0)
         {
-            audioSource.PlayOneShot(round_end, 0.7f);
-            zombie_Wave.end_round();
-            zombie_Wave.enabled = false;
-            panel.SetActive(true);
-            text.text = $" Round : {zombie_Wave.wave} | kills : {zombie_Wave._killcount} | Money : {zombie_Wave._money._current_money}";
-            for (int i = 0; i < hide.Length; i++)
-            {
-                hide[i].SetActive(false);
-            }
-            await Task.Delay(15*1000);
-            scenes.load_scenes(0);
+            game_Handler.game_over();
         }
     }
     public void upgrade_health()
