@@ -37,15 +37,16 @@ public class Game_handler : MonoBehaviour
         {
             hide[i].SetActive(false);
         }
+        _Save.player._Money = 0;
+        _Save.save();
         await Task.Delay(15 * 1000);
-        _Save.Delete_file();
         scenes.load_scenes(0);
     }
     public async void game_over()
     {
         if(_Save.player.number_save != 0)
         {
-            if (_money._current_money > 950 && _money._current_money != 0)
+            if (_money._current_money > 950)
             {
                 _Save.player.number_save--;
                 _Save.player._Money = _money._current_money;
