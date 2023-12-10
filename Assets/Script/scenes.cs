@@ -12,6 +12,7 @@ public class scenes : MonoBehaviour
     }
     public void exit()
     {
+
         Application.Quit();
     }
 }

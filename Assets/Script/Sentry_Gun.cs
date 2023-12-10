@@ -29,7 +29,7 @@ public class Sentry_Gun : MonoBehaviour
     {
         for (int i = 0; i < zombies.Length; i++)
         {
-            if (zombies[i] != null && Vector3.Distance(this.transform.position,zombies[i].transform.position) < _distance_to_fire)
+            if (zombies[i].activeInHierarchy && Vector3.Distance(this.transform.position,zombies[i].transform.position) < _distance_to_fire)
             {
                 _is_zombie_near_distance_found = true;
                 get_zombie_number = i;
@@ -87,14 +87,17 @@ public class Sentry_Gun : MonoBehaviour
     {
         nexttimefire += Time.deltaTime;
         if (_is_finsh) { _particleSystem.Stop(); return; }
-        check_nearest_zombie(zombie_Wave._Zombie_charcter);
-        if (_is_zombie_near_distance_found)
+        if (zombie_Wave.is_setup_finish)
         {
-            Custom_lockat(zombie_Wave._Zombie_charcter[get_zombie_number]);
-        }
-        else
-        {
-            return;
+            check_nearest_zombie(zombie_Wave._Zombie_charcter);
+            if (_is_zombie_near_distance_found)
+            {
+                Custom_lockat(zombie_Wave._Zombie_charcter[get_zombie_number]);
+            }
+            else
+            {
+                return;
+            }
         }
             _fire();
     }
