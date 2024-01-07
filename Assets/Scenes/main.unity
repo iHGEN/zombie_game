@@ -16886,14 +16886,17 @@ MonoBehaviour:
   animatorController: {fileID: 9100000, guid: 86c266047e838464197593b985c3e47a, type: 2}
   stoppingDistance: 0.75
   _is_area_enable: 
-  _attack_distance: 0.8
+  _attack_distance: 1
   zombie_Healths: []
+  zombei_animator: []
   _Zombie_charcter: []
+  Zombie_Agents: []
   _is_insta_kill_active: 0
   _killcount: 0
   wave: 0
   _start_point: 0
   _end_point: 0
+  is_setup_finish: 0
 --- !u!114 &634359120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16906,8 +16909,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombie_Wave: {fileID: 0}
+  id: 0
   Helath: 23
   _is_die: 0
+  zombie_Data_Continer: {fileID: 0}
 --- !u!114 &634359121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16939,7 +16945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 564391926}
   game_Handler: {fileID: 634359129}
-  _current_money: 950
+  _current_money: 90000
   zombie_hit_money: 15
 --- !u!114 &634359123
 MonoBehaviour:
@@ -37841,7 +37847,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -40370,7 +40376,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.1808281
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -40406,7 +40412,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

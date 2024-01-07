@@ -9,7 +9,7 @@ public class Zombie_health : MonoBehaviour
     public int id = 0;
     public float Helath;
     public bool _is_die;
-    readonly int die = Animator.StringToHash("die");
+    [SerializeField] private zombie_data_continer zombie_Data_Continer;
     // Update is called once per frame
     IEnumerator hide_zombie(int num)
     {
@@ -30,7 +30,7 @@ public class Zombie_health : MonoBehaviour
                     zombie_Wave.Zombie_Agents[id].isStopped = true;
                     zombie_Wave._killcount++;
                 }
-                zombie_Wave.zombei_animator[id].SetTrigger(die);
+                zombie_Wave.zombei_animator[id].SetTrigger(zombie_Data_Continer.die);
                 StartCoroutine(hide_zombie(id));
             }
         }

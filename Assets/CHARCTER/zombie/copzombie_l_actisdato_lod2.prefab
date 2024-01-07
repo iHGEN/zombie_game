@@ -170,6 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombie_Data_Continer: {fileID: 11400000, guid: c513464ff11a09549bf657e452678b93,
+    type: 2}
+  zombie_Wave: {fileID: 0}
+  id: 0
   Helath: 0
   _is_die: 0
 --- !u!195 &5162402270581574604
@@ -2167,7 +2171,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &1301344908058611500
 Transform:
@@ -2449,7 +2453,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4476368229983059084
 Transform:

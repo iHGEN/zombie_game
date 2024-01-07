@@ -2408,6 +2408,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombie_Data_Continer: {fileID: 11400000, guid: c513464ff11a09549bf657e452678b93,
+    type: 2}
+  zombie_Wave: {fileID: 0}
+  id: 0
   Helath: 0
   _is_die: 0
 --- !u!195 &4396281309250229324
