@@ -23,9 +23,9 @@ public class _weapon_switch : MonoBehaviour
     }
     void _Weapon_Switch(int num)
     {
+        num = num >= _Weapons.Length ? 0 : num < 0 ? _Weapons.Length - 1 : num;
         if (_Weapons[num] != null && num < _Weapons.Length)
         {
-            num = num > 0 && num < _Weapons.Length ? num : 0;
             gun_index = num;
             for (int i = 0; i < _Weapons.Length; i++)
             {
@@ -54,22 +54,17 @@ public class _weapon_switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            gun_index++;
+            _Weapon_Switch(gun_index);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+
+            gun_index--;
+            _Weapon_Switch(gun_index);
+        }
         check_for_ammo();
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _Weapon_Switch(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _Weapon_Switch(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            _Weapon_Switch(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            _Weapon_Switch(3);
-        }
     }
 }

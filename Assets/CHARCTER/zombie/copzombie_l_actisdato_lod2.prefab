@@ -170,12 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie_Data_Continer: {fileID: 11400000, guid: c513464ff11a09549bf657e452678b93,
-    type: 2}
   zombie_Wave: {fileID: 0}
   id: 0
   Helath: 0
   _is_die: 0
+  zombie_Data_Continer: {fileID: 11400000, guid: c513464ff11a09549bf657e452678b93,
+    type: 2}
 --- !u!195 &5162402270581574604
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1230,8 +1230,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4081962218499232478, guid: 3ced8f45528c607408ea5c87ba66fb6a, type: 3}
-  - {fileID: 935300313031477895, guid: 3ced8f45528c607408ea5c87ba66fb6a, type: 3}
+  - {fileID: 2100000, guid: ccbec0dfa21f33d4cac2abe1230d08e2, type: 2}
+  - {fileID: 2100000, guid: ccbec0dfa21f33d4cac2abe1230d08e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1576,7 +1576,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 935300313031477895, guid: 3ced8f45528c607408ea5c87ba66fb6a, type: 3}
+  - {fileID: 2100000, guid: e747c5e51fb2e73419ba5bb7c3908052, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2209,7 +2209,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 880348872631769509, guid: 3ced8f45528c607408ea5c87ba66fb6a, type: 3}
+  - {fileID: 2100000, guid: f76b5692a361baf48988b93c127aeffd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2491,7 +2491,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1582885001247110257, guid: 3ced8f45528c607408ea5c87ba66fb6a, type: 3}
+  - {fileID: 2100000, guid: f76b5692a361baf48988b93c127aeffd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

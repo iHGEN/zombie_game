@@ -2408,12 +2408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26f7ad878e77a4e98cce64631066ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie_Data_Continer: {fileID: 11400000, guid: c513464ff11a09549bf657e452678b93,
-    type: 2}
   zombie_Wave: {fileID: 0}
   id: 0
   Helath: 0
   _is_die: 0
+  zombie_Data_Continer: {fileID: 11400000, guid: c513464ff11a09549bf657e452678b93,
+    type: 2}
 --- !u!195 &4396281309250229324
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2576,7 +2576,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2770454427183322101, guid: e8256717634702843bc6cbed4888aeeb, type: 3}
+  - {fileID: 2100000, guid: dd94418d19f3a4644a70f3084203b42f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

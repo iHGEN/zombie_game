@@ -29,15 +29,18 @@ public class Sentry_Gun : MonoBehaviour
     {
         for (int i = 0; i < zombies.Length; i++)
         {
-            if (zombies[i].activeInHierarchy && Vector3.Distance(this.transform.position,zombies[i].transform.position) < _distance_to_fire)
+            if (zombies[i] != null)
             {
-                _is_zombie_near_distance_found = true;
-                get_zombie_number = i;
-                break;
-            }
-            else
-            {
-                _is_zombie_near_distance_found = false;
+                if (zombies[i].activeInHierarchy && Vector3.Distance(this.transform.position, zombies[i].transform.position) < _distance_to_fire)
+                {
+                    _is_zombie_near_distance_found = true;
+                    get_zombie_number = i;
+                    break;
+                }
+                else
+                {
+                    _is_zombie_near_distance_found = false;
+                }
             }
         }
     }

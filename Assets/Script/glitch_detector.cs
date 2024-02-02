@@ -24,7 +24,7 @@ public class glitch_detector : MonoBehaviour
         check_area();
         if(this.transform.position.y < -0.1 || this.transform.position.y > 12)
         {
-            this.transform.position = zombie_Wave._area_point[0].transform.position;
+            this.transform.position = new Vector3(zombie_Wave._area_point[0].transform.position.x, zombie_Wave._area_point[0].transform.position.y + 0.2f, zombie_Wave._area_point[0].transform.position.z);
         }
     }
 }
